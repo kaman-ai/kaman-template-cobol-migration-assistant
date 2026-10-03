@@ -1,0 +1,60 @@
+{
+  "name": "COBOL Migration Assistant",
+  "agents": {
+    "cobol_analyst": "f46c77d5-b721-59ab-bcf4-ceed5ce04665",
+    "translator": "172b315c-77a1-5061-bb2b-a6c90f34d03c",
+    "equivalence_tester": "9eb200ff-d9de-5266-9f38-eb037decc769"
+  },
+  "workflows": {
+    "flow": "e603b9ae-7d02-536c-8af3-bbbec7cdb141"
+  },
+  "ui": {
+    "title": "COBOL Migration Assistant",
+    "tagline": "Migrates a COBOL program to a modern language the safe way: inventories it and its copybooks, sends constructs like CICS or ALTER to an architect, translates with your migration rules, and proves the result by running old and new code on the same data - a pull request opens only when the outputs match.",
+    "actions": [
+      {
+        "id": "run",
+        "label": "Run: Migrate a COBOL program",
+        "description": "Point Kaman at a COBOL program. It inventories the program and its copybooks, gates constructs that need an architect, translates it following your migration rules, proves equivalence by running the old and new code on the same inputs, and opens a pull request only when the outputs match.",
+        "kind": "workflow",
+        "target": "flow",
+        "inputs": [
+          {
+            "name": "program",
+            "label": "Program",
+            "kind": "text",
+            "default": "CLMCALC"
+          },
+          {
+            "name": "target_language",
+            "label": "Target language",
+            "kind": "text",
+            "default": "java"
+          },
+          {
+            "name": "test_dataset",
+            "label": "Test dataset",
+            "kind": "text",
+            "default": "claims-sample-2026q3"
+          }
+        ]
+      },
+      {
+        "id": "ask",
+        "label": "Ask the COBOL Analyst",
+        "description": "Inventories a COBOL program and its copybooks from the IBM i source files.",
+        "kind": "agent",
+        "target": "cobol_analyst",
+        "prompt": "{{question}}",
+        "inputs": [
+          {
+            "name": "question",
+            "label": "Your question",
+            "kind": "text",
+            "default": "Inventory program CLMCALC."
+          }
+        ]
+      }
+    ]
+  }
+}
